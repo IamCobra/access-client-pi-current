@@ -1,0 +1,20 @@
+[Unit]
+Description=Adgangskontrol MQTT-klient
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=ikhvan
+WorkingDirectory=/home/ikhvan/access-client
+EnvironmentFile=/etc/access-client.env
+Environment=GPIOZERO_PIN_FACTORY=lgpio
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/home/ikhvan/access-client/.venv/bin/python /home/ikhvan/access-client/mqtt_client.py
+Restart=always
+RestartSec=5
+TimeoutStopSec=10
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
